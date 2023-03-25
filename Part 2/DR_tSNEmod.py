@@ -2,18 +2,16 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
-df = pd.read_excel(r"./../Data/RawData.xlsx")
-#scaling the data so it can be used in the t-SNE
+def tSNE(df):
+    scale = StandardScaler().fit(df)
 
-scale = StandardScaler().fit(df)
+    df_scaled = scale.transform(df)
 
-df_scaled = scale.transform(df)
+    #t-SNE code
 
-#t-SNE code
+    from sklearn.manifold import TSNE
 
-from sklearn.manifold import TSNE
-
-n_components = 2
-tsne = TSNE(n_components)
-tsne_result = tsne.fit_transform(df_scaled)
-tsne_result.shape
+    n_components = 2
+    tsne = TSNE(n_components)
+    tsne_result = tsne.fit_transform(df_scaled)
+    return tsne_result
